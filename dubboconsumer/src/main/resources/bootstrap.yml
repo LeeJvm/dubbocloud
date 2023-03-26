@@ -1,0 +1,58 @@
+
+app:
+  name: dubboconsumer
+
+nacos:
+  address: 192.168.1.7:8848
+  namespace: 4ffe9863-596d-4f26-ad2f-64e03b14f85a
+  username: dubbocloud
+  password: nacos
+
+
+spring:
+  main:
+    allow-circular-references: true
+  application:
+    name: ${app.name}
+  profiles:
+    active: ${platenv:dev}
+  cloud:
+    nacos:
+      discovery:
+        server-addr: ${nacos.address}
+        namespace: ${nacos.namespace}
+        username: ${nacos.username}
+        password: ${nacos.password}
+      config:
+        username: ${nacos.username}
+        password: ${nacos.password}
+        server-addr: ${nacos.address}
+        group: DEFAULT_GROUP
+        namespace: ${nacos.namespace}
+        file-extension: properties
+        extension-configs:
+          - data-id: dubbo-consumer.properties
+            group: DEFAULT_GROUP
+            refresh: true
+
+
+#实现注册和发现功能
+dubbo:
+  application:
+    name: ${app.name}
+  registry:
+    address: nacos://${nacos.address}
+    username: ${nacos.username}
+    password: ${nacos.password}
+    parameters:
+      namespace: ${nacos.namespace}
+
+
+
+
+
+
+
+
+
+
