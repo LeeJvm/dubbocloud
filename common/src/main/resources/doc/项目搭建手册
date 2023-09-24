@@ -1,1 +1,120 @@
 这是项目搭建手册，知道你如何搭建开发环境
+
+==========1,项目代码维护到github上面：git@github.com:LeeJvm/dubbocloud.git
+
+==========2，维护提交流程：
+用git工具在github clone
+idea导入项目
+idea提交到本地仓库：修改代码文件---右键--git--commitfile
+用idea工具提交到远程github： git push -u origin master
+
+==========3，开发搭建和相关信息：
+
+nacos： http://192.168.1.5:8848/nacos/#/login
+服务器地址：/opt/nacos/nacos/bin
+启动命令：sh startup.sh -m standalone
+
+==========4，集成swagger，nacos添加相关配置；swagger-ui还在header增加token参数
+   添加swagger开关配置：实现在生产环境关闭swagger----？？？？？
+
+==========5，集成redis：
+1）redis启停：
+      /opt/redis-4.0.8
+redis-server redis.conf
+连接redis：  redis-cli -p 6379 -a 123
+
+lettcue连接哨兵模式，如何实现高可用？？？？？？？？？？？？？？
+也就是说哨兵模式master切换，应用可以自动切换吗？？？？？？
+读写分离，如何实现读的高可用？？？？？？
+
+
+==========6，common包最后会演化成为一个starter
+
+redis：
+elasticsearch：
+kafka：
+mysql：
+
+==========6，集成rabbitmq：
+启动docker：
+systemctl start docker
+启动容器：
+docker start a3c538d7762e
+
+
+==========7，安装启动kafka
+
+  # docker直接拉取kafka和zookeeper的镜像
+  docker pull wurstmeister/kafka
+  docker pull wurstmeister/zookeeper
+  # 首先需要启动zookeeper，如果不先启动，启动kafka没有地方注册消息
+  docker run -it --name zookeeper -p 12181:2181 -d wurstmeister/zookeeper:latest
+  # 启动kafka容器，注意需要启动三台,注意端口的映射，都是映射到9092
+  # 第一台
+  docker run -it --name kafka01 -p 19092:9092 -d -e KAFKA_BROKER_ID=0 -e KAFKA_ZOOKEEPER_CONNECT=192.168.233.129:12181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.233.129:19092 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 wurstmeister/kafka:latest
+  # 第二台
+  docker run -it --name kafka02 -p 19093:9092 -d -e KAFKA_BROKER_ID=1 -e KAFKA_ZOOKEEPER_CONNECT=192.168.233.129:12181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.233.129:19093 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 wurstmeister/kafka:latest
+  # 第三台
+  docker run -it --name kafka03 -p 19094:9092 -d -e KAFKA_BROKER_ID=2 -e KAFKA_ZOOKEEPER_CONNECT=192.168.233.129:12181 -e KAFKA_ADVERTISED_LISTENERS=PLAINTEXT://192.168.233.129:19094 -e KAFKA_LISTENERS=PLAINTEXT://0.0.0.0:9092 wurstmeister/kafka:latest
+
+
+
+
+==========7，基础架构集成和完善：
+在dubboconsumer集成单点登录和springsecurity：
+https://blog.csdn.net/weixin_50569789/article/details/123766739
+5、授权
+
+dubboconsumer和dubboprovider集成：mybatis和数据库连接：参考gaussdbcon项目
+--> jedis序列化方案：写序列化和反序列化的工具类，在调用set、get方法之前、之后再调用序列化相关的方法进行前置和后置的处理
+--> 可以整理成为一个aop来实现
+--> 序列化方式：key使用string的序列化方式，value是使用jackson的序列化方式
+
+
+==========8，集成mybatisplus：---暂不集成
+
+
+==========9，集成日志框架，打印sql日志：----已完成
+1)集成日志框架：logback.xml
+2）分级输出
+
+==========10，集成springsecurity和单点登录：https://blog.csdn.net/qq_22075913/article/details/125148535
+1，登录请求接口加密和解密：
+2，用户增删改查加密和解密：
+3，存储用户密码加密：
+4，springsecurity登录功能：用户密码对比，权限和组织信息
+
+
+
+==========11,基础功能：
+1，自定义注解---已完成
+2，自定义注解实现aop，完善日志功能---已完成
+3，自定义注解实现全局异常处理---已完成
+4，公共分页插件和工具类
+5，规范dto
+
+
+==============================================架构搭建事项：
+
+0，将common包的yml删除，配置文件配置到各个具体模块，进行验证 ---已完成
+1，集成swagger-ui  ---已完成
+2, 集成redis       ---已完成
+3，集成springsecurity
+4，开分支集成shiro ---ignore
+5，集成日志框架    ---已完成
+6，处理所有的filter和应用场景、实现方式
+7，接口加密和解密
+8, 统一异常处理  --已完成
+9，bean 自我验证： @validate
+10，拆分dto，pojo，ov
+11,序列化和序列化应用
+12.redis序列化
+
+。。。。
+开始应用程序
+
+
+=====================================================学习内容整理：
+1，静态内部类、内部类---》》应用场景
+
+

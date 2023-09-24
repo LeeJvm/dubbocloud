@@ -53,7 +53,6 @@
         <easyexcel.verion>2.2.7</easyexcel.verion>
         <!-- apache工具版本 -->
         <commons-collections.version>3.2.2</commons-collections.version>
-        <sso.version>1.6.11-yxtp-SNAPSHOT</sso.version>
     </properties>
 
 
@@ -64,6 +63,7 @@
             <artifactId>dubboservice</artifactId>
             <version>0.0.1-SNAPSHOT</version>
         </dependency>
+
         <dependency>
             <groupId>com.gavin</groupId>
             <artifactId>common</artifactId>

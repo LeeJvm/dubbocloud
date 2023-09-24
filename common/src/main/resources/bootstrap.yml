@@ -1,14 +1,12 @@
 
 app:
-  name: dubboconsumer
+  name: common
 
 nacos:
   address: 192.168.1.5:8848
   namespace: 4ffe9863-596d-4f26-ad2f-64e03b14f85a
   username: dubbocloud
   password: nacos
-
-
 
 
 spring:
@@ -33,7 +31,7 @@ spring:
         namespace: ${nacos.namespace}
         file-extension: properties
         extension-configs:
-          - data-id: dubbo-consumer.properties
+          - data-id: common.properties
             group: DEFAULT_GROUP
             refresh: true
 
@@ -48,7 +46,6 @@ dubbo:
     password: ${nacos.password}
     parameters:
       namespace: ${nacos.namespace}
-
 
 
 

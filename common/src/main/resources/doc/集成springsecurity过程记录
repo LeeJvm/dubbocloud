@@ -1,0 +1,6 @@
+
+1，添加依赖
+2，实现SpringSecurityConfig配置
+
+3，登录认证：
+3.1实现org.springframework.security.core.userdetails.UserDetailsService接口，作为数据源

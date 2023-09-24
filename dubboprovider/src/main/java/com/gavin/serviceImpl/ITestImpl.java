@@ -1,6 +1,8 @@
-package com.gavin.service;
+package com.gavin.serviceImpl;
 
 
+
+import com.gavin.service.ITest;
 import org.apache.dubbo.config.annotation.DubboService;
 
 /**

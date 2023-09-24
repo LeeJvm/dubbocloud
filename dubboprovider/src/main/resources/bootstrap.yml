@@ -3,7 +3,7 @@ app:
   name: dubboprovider
 
 nacos:
-  address: 192.168.1.7:8848
+  address: 192.168.1.5:8848
   namespace: 4ffe9863-596d-4f26-ad2f-64e03b14f85a
   username: dubbocloud
   password: nacos

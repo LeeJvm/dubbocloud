@@ -5,9 +5,7 @@ package com.gavin.service;
  */
 public interface ITest {
 
-
     public String Hello();
-
 
 
 }

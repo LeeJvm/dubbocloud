@@ -2,6 +2,7 @@ package com.gavin.pojo;
 
 import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -16,9 +17,10 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 
-public class SentimentDTO {
+public class SentimentDTO  implements Serializable {
 
 
+    private static final long serialVersionUID = 7450261711626882013L;
     private String startDate;
 
     private String endDate;
@@ -34,4 +36,14 @@ public class SentimentDTO {
                 ", indexList=" + indexList +
                 '}';
     }
+
+    public static void main(String[] args) {
+        //@Builder的使用方式
+        SentimentDTO sentimentDTO = SentimentDTO.builder().startDate("1111").build();
+
+
+
+    }
+
+
 }
